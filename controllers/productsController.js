@@ -29,14 +29,14 @@ const getAllProducts = asyncWrapper(async (req, res) => {
 
     let filters = numericFilters.replace(
       regex,
-      (match) => `-${operatorMap[match]}`
+      (match) => `-${operatorMap[match]}-`
     );
 
     const numericOptions = ["price", "rating"];
 
-    filters.split(",").forEach((field) => {
-      const [type, operator, value] = field.split("-");
-      if (numericOptions.includes(filed)) {
+    filters = filters.split(",").forEach((item) => {
+      const [field, operator, value] = item.split("-");
+      if (numericOptions.includes(field)) {
         queryObj[field] = { [operator]: Number(value) };
       }
     });
